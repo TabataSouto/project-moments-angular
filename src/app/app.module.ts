@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { FormComponent } from './components/moment/form/form.component';
 import { MomentFormComponent } from './components/moment-form/moment-form.component';
 import { AboutComponent } from './components/pages/about/about.component';
 import { HomeComponent } from './components/pages/home/home.component';
@@ -20,7 +19,6 @@ import { NewMomentComponent } from './components/pages/new-moment/new-moment.com
     FooterComponent,
     HeaderComponent,
     MessagesComponent,
-    FormComponent,
     MomentFormComponent,
     AboutComponent,
     HomeComponent,
