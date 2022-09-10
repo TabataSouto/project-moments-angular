@@ -6,6 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./moment-form.component.css']
 })
 export class MomentFormComponent implements OnInit {
+  /* entgrega o dado para o template, sendo esse dado
+  informado atravéas de "props" pelo pai. */
   @Input() btnText!: string;
 
   constructor() { }
