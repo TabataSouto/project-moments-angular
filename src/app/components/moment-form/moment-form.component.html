@@ -1,11 +1,37 @@
-<form>
+<!-- #formDir="ngForm" declara qual, ou onde é o meu formulário. Com
+isso, ele entende que é um formulário e consegue mapear, por exemplo,
+quando damos um submit. -->
+<!-- IMPORTANTE: o evento ngSubmit será utilizado para enviar os
+dados para o banco e criar o novo momento e não enviar caso tenha
+alguma informação errada. Agora, para DISPARAR AS VALIDAÇÕES do
+template, teremos como base o formDir -->
+<form (ngSubmit)="submit()" [formGroup]="momentForm" #formDir="ngForm">
   <div class="form-group">
     <label for="title">Título:</label>
-    <input type="text" placeholder="Coloque um título" required />
+    <input
+      type="text"
+      placeholder="Coloque um título"
+      formControlName="title"
+      required
+    />
+    <!-- Mensagem irá aparecer apenas se o submid acontecer e se o title for inválido -->
+    <div *ngIf="formDir.submitted && title.invalid" class="validation-error">
+      <!-- Garante que a frase apareça APENAS se o erro for sobre a validação
+      que está sendo feita, nesse caso, um campo obrigatório (required)  -->
+      <p *ngIf="title.errors?.['required']">O título é obrigatório!</p>
+    </div>
   </div>
   <div class="form-group">
-    <label for="title">Descrição:</label>
-    <textarea placeholder="O que aconteceu lá?" required></textarea>
+    <label for="description">Descrição:</label>
+    <textarea
+    formControlName="description"
+      placeholder="O que aconteceu lá?"
+      required
+    >
+    </textarea>
+    <div *ngIf="formDir.submitted && description.invalid" class="validation-error">
+      <p *ngIf="description.errors?.['required']">A descrição é obrigatória!</p>
+    </div>
   </div>
   <div class="form-group">
     <label for="image">Coloque a foto que mais marcou:</label>
