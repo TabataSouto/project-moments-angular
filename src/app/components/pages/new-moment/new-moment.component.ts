@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { IMoment } from 'src/app/interfaces/IMoment';
 
@@ -15,7 +16,8 @@ export class NewMomentComponent implements OnInit {
 
   constructor(
     private momentService: MomentService,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -37,13 +39,14 @@ export class NewMomentComponent implements OnInit {
     if (moment.image) formData.append('image', moment.image)
 
     // depois de feito o cadastro iremos:
-    // enviar para o service
+    // enviar para o service, criando e adicionando no DB.
     await this.momentService.createMoment(formData).subscribe();
 
-    // exibir mensagem de que o momento foi cadastrado com sucesso
+    // exibir mensagem de que o momento foi cadastrado com sucesso.
     this.messagesService.add('Momento adicionado com sucesso!')
 
-    // redirect
+    // redirecionar para home depois de adicionar um novo momento.
+    this.router.navigate(['/'])
   }
 
 }
