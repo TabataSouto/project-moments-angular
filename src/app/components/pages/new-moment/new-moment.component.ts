@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { IMoment } from 'src/app/interfaces/IMoment';
+
 import { MomentService } from 'src/app/services/moment/moment.service';
+import { MessagesService } from 'src/app/services/messages/messages.service';
 
 @Component({
   selector: 'app-new-moment',
@@ -10,7 +13,10 @@ import { MomentService } from 'src/app/services/moment/moment.service';
 export class NewMomentComponent implements OnInit {
   btnText = "Compartilhar!"
 
-  constructor(private service: MomentService) { }
+  constructor(
+    private momentService: MomentService,
+    private messagesService: MessagesService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -30,12 +36,12 @@ export class NewMomentComponent implements OnInit {
     // formData.append(moment.image && 'image', moment.image)
     if (moment.image) formData.append('image', moment.image)
 
-    // depois de feito o cadastro;
-
+    // depois de feito o cadastro iremos:
     // enviar para o service
-    await this.service.createMoment(formData).subscribe();
+    await this.momentService.createMoment(formData).subscribe();
 
-    // exibir mensagem
+    // exibir mensagem de que o momento foi cadastrado com sucesso
+    this.messagesService.add('Momento adicionado com sucesso!')
 
     // redirect
   }
