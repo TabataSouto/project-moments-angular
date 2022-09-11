@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IMoment } from 'src/app/interfaces/IMoment';
 
 @Component({
   selector: 'app-moment-form',
@@ -7,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./moment-form.component.css']
 })
 export class MomentFormComponent implements OnInit {
+  @Output() onSubmit = new EventEmitter<IMoment>()
   /* entgrega o dado para o template, sendo esse dado
   informado atravéas de "props" pelo pai. */
   @Input() btnText!: string;
@@ -35,6 +37,15 @@ export class MomentFormComponent implements OnInit {
     return this.momentForm.get('title')!;
   }
 
+  onFileSelected(event: any) {
+    // para pegar o arquivo enviado no input, no caso, a imagem.
+    const file: File = event.target.files[0];
+    /* patchValue -> método para inserir algo do formulário que
+    não seja por meio do ngOnInit, pois no caso da imagem, precisa
+    ser por meio desse método. */
+    this.momentForm.patchValue({ image: file })
+  }
+
   get description() {
     return this.momentForm.get('description')!;
   }
@@ -45,6 +56,9 @@ export class MomentFormComponent implements OnInit {
   a submissão do formulário. */
   submit() {
     if (this.momentForm.invalid) return;
+    /* é feito o envio, por meio do onSubmit, dos dados do formulário
+    para o componente pai que irá fazer a inserção no banco. */
+    this.onSubmit.emit(this.momentForm.value);
   }
 
 }

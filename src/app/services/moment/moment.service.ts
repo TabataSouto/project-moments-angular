@@ -1,9 +1,23 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+
+import { IMoment } from 'src/app/interfaces/IMoment';
+
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MomentService {
 
-  constructor() { }
+export class MomentService {
+  private baseApiUrl = environment.baseApiUrl;
+  private apiUrl = `${this.baseApiUrl}api/moments`
+
+  constructor(private httl: HttpClient) { }
+
+  createMoment(formData: FormData): Observable<FormData> {
+    return this.httl.post<FormData>(this.apiUrl, formData);
+  }
 }

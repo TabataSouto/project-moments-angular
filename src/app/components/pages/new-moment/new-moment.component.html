@@ -1,3 +1,9 @@
 <h2>Compartilhe o seu <span>Momento</span>!</h2>
-<!-- bntText é a "props" utilizada no componente dinâmico -->
-<app-moment-form [btnText]="btnText"></app-moment-form>
+<!-- bntText é a "props" utilizada no componente dinâmico, ou seja,
+o valor do atributo ou método enviado ao componente filho. -->
+<!-- (onSubmit)="createHandler($event)" -> vai emitir um evento
+onSubmit onde teremos um método createHandler. -->
+<app-moment-form
+  [btnText]="btnText"
+  (onSubmit)="createHandler($event)"
+  ></app-moment-form>
