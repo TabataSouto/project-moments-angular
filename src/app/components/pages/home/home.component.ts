@@ -17,7 +17,9 @@ export class HomeComponent implements OnInit {
   moments: IMoment[] = [];
   baseApiUrl = environment.baseApiUrl;
 
-  // lista para realização do search
+  // passos para realização do search
+  faSearch = faSearch;
+  serachTerm: string = '';
 
   constructor(
     private momentService: MomentService
@@ -36,6 +38,18 @@ export class HomeComponent implements OnInit {
       this.allMoments = data;
       this.moments = data;
     })
+  }
+
+  search(e: Event): void {
+    /* é preciso fazer a linha 45 para pegar o value, pois
+    o TypeScript não deixa pegar o value do targer direto
+    do evento. */
+    const target = e.target as HTMLInputElement;
+    const value = target.value;
+
+    this.moments = this.allMoments.filter(
+      (moment) => moment.title.toLowerCase().includes(value)
+    );
   }
 
 }
