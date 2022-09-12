@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { IMoment } from 'src/app/interfaces/IMoment';
+import { IResponse } from 'src/app/interfaces/IResponse';
 
 import { environment } from 'src/environments/environment';
 
@@ -15,9 +16,13 @@ export class MomentService {
   private baseApiUrl = environment.baseApiUrl;
   private apiUrl = `${this.baseApiUrl}api/moments`
 
-  constructor(private httl: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   createMoment(formData: FormData): Observable<FormData> {
-    return this.httl.post<FormData>(this.apiUrl, formData);
+    return this.http.post<FormData>(this.apiUrl, formData);
+  }
+
+  getMoments(): Observable<IResponse<IMoment[]>> {
+    return this.http.get<IResponse<IMoment[]>>(this.apiUrl);
   }
 }
