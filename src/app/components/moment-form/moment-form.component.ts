@@ -9,9 +9,10 @@ import { IMoment } from 'src/app/interfaces/IMoment';
 })
 export class MomentFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<IMoment>()
-  /* entgrega o dado para o template, sendo esse dado
+  /* entrega o dado para o template, sendo esse dado
   informado atravéas de "props" pelo pai. */
   @Input() btnText!: string;
+  @Input() momentData: IMoment | null = null;
 
   momentForm!: FormGroup;
 
@@ -22,10 +23,14 @@ export class MomentFormComponent implements OnInit {
   ngOnInit(): void {
     this.momentForm = new FormGroup({
       // FormControl -> controla o input, no caso, o valor inputado.
-      id: new FormControl(''),
+      id: new FormControl(this.momentData ? this.momentData.id : ''),
       // [Validators.required] -> disparo de validação
-      title: new FormControl('', [Validators.required]),
-      description: new FormControl('', [Validators.required]),
+      title: new FormControl(
+        this.momentData ? this.momentData.title : '', [Validators.required]
+      ),
+      description: new FormControl(
+        this.momentData ? this.momentData.description : '', [Validators.required]
+      ),
       image: new FormControl(''),
     });
   }

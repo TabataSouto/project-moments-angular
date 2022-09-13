@@ -6,6 +6,7 @@ dados para o banco e criar o novo momento e não enviar caso tenha
 alguma informação errada. Agora, para DISPARAR AS VALIDAÇÕES do
 template, teremos como base o formDir -->
 <form (ngSubmit)="submit()" [formGroup]="momentForm" #formDir="ngForm">
+  <input type="hidden" formControlName="id">
   <div class="form-group">
     <label for="title">Título:</label>
     <input

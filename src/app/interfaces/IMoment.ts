@@ -6,7 +6,9 @@ export interface IMoment {
   created_at?: string,
   updated_at?: string,
   comments?: [
-      text: string,
-      username: string
+      {
+        text: string,
+        username: string
+      }
     ]
 }
